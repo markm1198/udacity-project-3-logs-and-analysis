@@ -1,0 +1,47 @@
+
+this is the command to run external scripts from the psql shell:
+news=# \include query_1.sql
+
+modify above command for different scripts with appropriate file name, take
+note of the "news=#" prompt, get there by the following command when first
+entering psql shell "\connect news" then confirm by looking at the prompt
+or by the following command "SELECT current_database();"
+
+To run the psql shell form Mac OS X terminal do the following:
+/Applications/Postgres.app/Contents/Versions/9.6/bin/psql -U postgres
+Note you must run the above command to start psql from the following
+direcotry for the above noted "\include" command to be able to see the .sql
+files:
+/Users/mark/Desktop/Udacity_projects/project_3
+
+
+
+
+Create directory (file) on desktop with unzipped newsdata.sql file in it.
+ Mine was Udacity_projects/project_3     (with the newsdata.sql file inside project_3)
+
+in terminal cd to that directory
+
+
+1. mark ~
+$ cd Desktop/Udacity_projects/project_3
+
+2. mark project_3
+$ /Applications/Postgres.app/Contents/Versions/9.6/bin/psql -U postgres
+Password for user postgres: (enter the password you set up when installing Postgresql, if you
+forgot it or didn't set it up, https://stackoverflow.com/questions/10845998/i-forgot-the-password-i-
+entered-during-postgres-installation,
+but it's almost easier to uninstall
+https://stackoverflow.com/questions/8037729/completely-uninstall-postgresql-9-0-4-from-mac-osx-lion
+ the entire Postgres app and and misc. associated files follow the stack steps closely from terminal)
+
+(first time only, after step 2...   postgres=# create database news;
+then  postgres=# \l      (lists databases, do you see news? good )
+
+
+3. postgres=# \connect news
+
+to run .sql from terminal
+
+4. news=# \include query_1.sql;
+    (name of the file with my first test query in it)

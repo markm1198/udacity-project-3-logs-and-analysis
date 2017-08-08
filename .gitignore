@@ -1,0 +1,5 @@
+.idea/
+*.pyc
+*.sql
+*.odt
+project_3_tests/
