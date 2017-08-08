@@ -4,9 +4,10 @@ conn = psycopg2.connect("dbname=news user=postgres password=dawg")
 # Open up a connection to the server
 cur = conn.cursor()
 
-def repeat_separator():
 
+def repeat_separator():
     print "-" * 25
+
 
 repeat_separator()
 
@@ -15,16 +16,16 @@ print "The 3 most popular articles of all time are "
 repeat_separator()
 
 cur.execute('''
-    select articles.title, count(log.path) as num
-    from log
-    join articles on log.path = CONCAT ('/article/', articles.slug)
-    group by articles.title
-    order by num desc offset 1 limit 3;
+    SELECT articles.title, count(log.path) AS num
+    FROM log
+    JOIN articles ON log.path = CONCAT ('/article/', articles.slug)
+    GROUP BY articles.title
+    ORDER BY num DESC OFFSET 1 LIMIT 3;
 ''')
 
 for articles in cur:
     print "The article path is " + str(articles[0])
-    print "The number of views for that article is " +str(articles[1])
+    print "The number of views for that article is " + str(articles[1])
     print "\n"
 
 repeat_separator()
@@ -32,13 +33,13 @@ repeat_separator()
 print "The most popular articles authors of all time are:"
 
 cur.execute('''
-    select authors.name, count(log.path)
-    from log
-    join articles on log.path = CONCAT ('/article/',articles.slug)
-    join authors on articles.author = authors.id
-    group by authors.name
-    having count(log.path) > 1
-    order by count(log.path) desc;
+    SELECT authors.name, count(log.path)
+    FROM log
+    JOIN articles ON log.path = CONCAT ('/article/',articles.slug)
+    JOIN authors ON articles.author = authors.id
+    GROUP BY authors.name
+    HAVING count(log.path) > 1
+    ORDER BY count(log.path) DESC;
 ''')
 
 for author in cur:
