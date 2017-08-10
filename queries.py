@@ -1,3 +1,5 @@
+#!/usr/bin/env python2.7
+
 import psycopg2
 
 conn = psycopg2.connect("dbname=news user=postgres password=dawg")
@@ -16,11 +18,10 @@ print "The 3 most popular articles of all time are "
 repeat_separator()
 
 cur.execute('''
-    SELECT articles.title, count(log.path) AS num
-    FROM log
-    JOIN articles ON log.path = CONCAT ('/article/', articles.slug)
-    GROUP BY articles.title
-    ORDER BY num DESC OFFSET 1 LIMIT 3;
+    select path, count(path) as num
+from log
+group by path
+order by num desc offset 1 limit 3;
 ''')
 
 for articles in cur:
